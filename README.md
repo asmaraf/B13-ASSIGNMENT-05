@@ -24,5 +24,6 @@ The Spread operator expands elements of an array or object.
 - Merge an array
 - pass value to function
 - copy or update objects
+
 The benefit of spread operator, it's easy for coping and merging. Also convenient for function arguments.
 
