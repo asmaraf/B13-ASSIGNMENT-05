@@ -211,7 +211,7 @@ ${issue.labels.map(label => `
 
 <div class="info-item">
 <label>Assignee</label>
-<p>${issue.assignee || "Unassigned"}</p>
+<p>${issue.assignee}</p>
 </div>
 
 <div class="info-item">
