@@ -2,18 +2,18 @@
 ## ANSWER-
 ### var
 
-- 1.Function scoped
-- 2.Does not respect block {} scope
-- 3.Hoisted to the top with default value undefined
-- 4.Can create unexpected bug
+- Function scoped
+- Does not respect block {} scope
+- Hoisted to the top with default value undefined
+- Can create unexpected bug
 
 ### let
 
-- 1.Block scoped ({})
-- 2.value can be reassigned
+- Block scoped ({})
+- value can be reassigned
 
 ### const
 
-- 1.Block scoped
-- 2.Cannot be reassigned
+- Block scoped
+- Cannot be reassigned
 
