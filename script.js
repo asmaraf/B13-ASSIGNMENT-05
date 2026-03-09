@@ -1,5 +1,8 @@
 const API = "https://phi-lab-server.vercel.app/api/v1/lab";
 
+localStorage.setItem("isLoggedIn", "true");
+window.location.href = "index.html";
+
 document.addEventListener("DOMContentLoaded", () => {
   initLogin();
   initDashboard();
