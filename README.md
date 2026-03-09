@@ -29,10 +29,10 @@ The benefit of spread operator, it's easy for coping and merging. Also convenien
 
 ## **3️⃣ What is the difference between map(), filter(), and forEach()?**
 ## ANSWER-
-## map()
+### map()
 - Transforms each element and returns a new array
-## filter()
+### filter()
 - REturns element that match a condition
-## forEach()
+### forEach()
 - Loops through the array but does not return a new array
 
