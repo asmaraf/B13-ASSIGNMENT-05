@@ -1,8 +1,5 @@
 const API = "https://phi-lab-server.vercel.app/api/v1/lab";
 
-localStorage.setItem("isLoggedIn", "true");
-window.location.href = "index.html";
-
 document.addEventListener("DOMContentLoaded", () => {
   initLogin();
   initDashboard();
@@ -25,6 +22,12 @@ function initLogin() {
       document.getElementById("errorMessage").classList.remove("hidden");
     }
   });
+}
+const logoutBtn = document.getElementById("logoutBtn");
+
+window.logout = function () {
+localStorage.removeItem("isLoggedIn");
+window.location.href = "login.html";
 }
 
 function initDashboard() {
