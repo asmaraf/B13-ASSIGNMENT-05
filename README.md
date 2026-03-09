@@ -1,5 +1,5 @@
 ## **1️⃣What is the difference between var, let, and const?**
-# ANSWER-
+## ANSWER-
 ### var
 
 - Function scoped
@@ -18,7 +18,7 @@
 - Cannot be reassigned
 
 ## **2️⃣ What is the spread operator (...)?**
-# ANSWER-
+## ANSWER-
 The Spread operator expands elements of an array or object.
 - Copy an array
 - Merge an array
@@ -28,11 +28,11 @@ The Spread operator expands elements of an array or object.
 The benefit of spread operator, it's easy for coping and merging. Also convenient for function arguments.
 
 ## **3️⃣ What is the difference between map(), filter(), and forEach()?**
-# ANSWER-
-# map()
-Transforms each element and returns a new array
-# filter()
-REturns element that match a condition
-# forEach()
-Loops through the array but does not return a new array
+## ANSWER-
+## map()
+- Transforms each element and returns a new array
+## filter()
+- REturns element that match a condition
+## forEach()
+- Loops through the array but does not return a new array
 
