@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - GitHub Issue Tracker</title>
+
     <script>
-        if (localStorage.getItem('isLoggedIn') !== 'true') {
-            window.location.href = 'login.html';
+        const loggedIn = localStorage.getItem("isLoggedIn");
+
+        if (!loggedIn || loggedIn !== "true") {
+            window.location.replace("login.html");
         }
     </script>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="dashboard-page">
