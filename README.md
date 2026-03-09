@@ -42,14 +42,14 @@ An array function is a shorter syntax for writing functions.
 
 Advantages
 - Short and clean syntax.
-- More readable code
-- Does not create its own this
+- More readable code.
+- Does not create its own this.
 
 ## 5️⃣ What are template literals?
 ## ANSWER-
 Template literals allow embedding variables inside strings.
 
 Advantages
-- Insert variables using ${}
-- Write multiline strings easily
-- Useful for dynamic UI text
+- Insert variables using ${}.
+- Write multiline strings easily.
+- Useful for dynamic UI text.
