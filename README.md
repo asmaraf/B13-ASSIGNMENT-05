@@ -1,4 +1,4 @@
-## **1️⃣What is the difference between var, let, and const?**
+## 1️⃣What is the difference between var, let, and const?
 ## ANSWER-
 ### var
 
@@ -17,7 +17,7 @@
 - Block scoped
 - Cannot be reassigned
 
-## **2️⃣ What is the spread operator (...)?**
+## 2️⃣ What is the spread operator (...)?
 ## ANSWER-
 The Spread operator expands elements of an array or object.
 - Copy an array
@@ -27,7 +27,7 @@ The Spread operator expands elements of an array or object.
 
 The benefit of spread operator, it's easy for coping and merging. Also convenient for function arguments.
 
-## **3️⃣ What is the difference between map(), filter(), and forEach()?**
+## 3️⃣ What is the difference between map(), filter(), and forEach()?
 ## ANSWER-
 ### map()
 - Transforms each element and returns a new array
@@ -36,7 +36,7 @@ The benefit of spread operator, it's easy for coping and merging. Also convenien
 ### forEach()
 - Loops through the array but does not return a new array
 
-## **4️⃣ What is an arrow function?**
+## 4️⃣ What is an arrow function?
 ## ANSWER-
 An array function is a shorter syntax for writing functions.
 
@@ -46,7 +46,7 @@ Advantages
 - Does not create its own this
 
 ## 5️⃣ What are template literals?
-### ANSWER-
+## ANSWER-
 Template literals allow embedding variables inside strings.
 
 Advantages
