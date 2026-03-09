@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GitHub Issue Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-header">
+            <img src="assets/github-logo.png" 
+                 alt="GitHub Logo" class="logo-large" 
+                 onerror="this.src='https://cdn-icons-png.flaticon.com/512/2111/2111432.png'"
+                 referrerPolicy="no-referrer">
+            <h1>GitHub Issues Tracker</h1>
+            <p class="subtitle">Sign in to manage your issues</p>
+        </div>
+
+        <form id="loginForm" class="login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required placeholder="Enter Username">
+                <p class="hint">Default: admin</p>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required placeholder="Enter Password">
+                <p class="hint">Default: admin123</p>
+            </div>
+
+            <button type="submit" class="btn-primary full-width">Sign In</button>
+            
+            <div id="errorMessage" class="error-message hidden">
+                Invalid username or password
+            </div>
+        </form>
+
+        <div class="login-footer">
+            <p class="divider"><span>OR</span></p>
+            <div class="demo-box">
+                <p class="demo-title">Demo Credentials:</p>
+                <p class="demo-item">Username: <span>admin</span></p>
+                <p class="demo-item">Password: <span>admin123</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

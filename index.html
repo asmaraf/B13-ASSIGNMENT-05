@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - GitHub Issue Tracker</title>
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-page">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <div class="navbar-left">
+                <img src="assets/github-logo.png" 
+                     alt="Logo" class="logo-small" 
+                     onerror="this.src='https://cdn-icons-png.flaticon.com/512/2111/2111432.png'"
+                     referrerPolicy="no-referrer">
+                <span class="brand-name">GitHub Issues Tracker</span>
+            </div>
+            <div class="navbar-right">
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" placeholder="Search issues...">
+                </div>
+                <button id="searchBtn" class="btn-primary">Search</button>
+                <button id="newIssueBtn" class="btn-primary btn-new-issue">
+                    <span>+</span> New Issue
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container main-content">
+
+        <!-- Tabs Section -->
+        <div class="card tabs-card">
+            <div class="tabs-list">
+                <button data-tab="all" class="tab-btn active">All</button>
+                <button data-tab="open" class="tab-btn">Open</button>
+                <button data-tab="closed" class="tab-btn">Closed</button>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="card summary-card">
+            <div class="summary-left">
+                <div id="summaryIcon" class="icon-circle">
+                    <img src="assets/Aperture.png" 
+                         alt="Status" class="status-icon-img" id="statusIconImg" 
+                         onerror="this.src='https://cdn-icons-png.flaticon.com/512/1022/1022213.png'"
+                         referrerPolicy="no-referrer">
+                </div>
+                <div class="summary-text">
+                    <h2><span id="issueCount">0</span> Issues</h2>
+                    <p>Track and manage your project issues</p>
+                </div>
+            </div>
+            <div class="summary-right">
+                <div class="status-indicator">
+                    <span class="dot dot-open"></span>
+                    <span>Open</span>
+                </div>
+                <div class="status-indicator">
+                    <span class="dot dot-closed"></span>
+                    <span>Closed</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="loadingSpinner" class="hidden loading-container">
+            <div class="spinner"></div>
+        </div>
+
+        <div id="issuesGrid" class="issues-grid">
+          
+        </div>
+
+        <div id="emptyState" class="hidden empty-state">
+            <p>No issues found matching your criteria.</p>
+        </div>
+    </main>
+
+    
+    <div id="issueModal" class="modal hidden">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <div id="modalHeader">
+                   
+                </div>
+                <button id="closeModal" class="btn-close">
+                  
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                
+            </div>
+            <div class="modal-footer">
+                <button id="closeModalBtn" class="btn-primary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
