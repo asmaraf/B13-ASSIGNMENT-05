@@ -36,3 +36,11 @@ The benefit of spread operator, it's easy for coping and merging. Also convenien
 ### forEach()
 - Loops through the array but does not return a new array
 
+## **4️⃣ What is an arrow function?**
+## ANSWER-
+An array function is a shorter syntax for writing functions.
+
+Advantages
+- Short and clean syntax.
+- More readable code
+- Does not create its own this
