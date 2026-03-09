@@ -17,3 +17,12 @@
 - Block scoped
 - Cannot be reassigned
 
+## **2️⃣ What is the spread operator (...)?**
+## ANSWER-
+The Spread operator expands elements of an array or object.
+- Copy an array
+- Merge an array
+- pass value to function
+- copy or update objects
+The benefit of spread operator, it's easy for coping and merging. Also convenient for function arguments.
+
