@@ -522,7 +522,6 @@ body {
     font-size: 1.125rem;
 }
 
-/* --- Modal --- */
 .modal {
     position: fixed;
     inset: 0;
@@ -657,14 +656,12 @@ body {
     justify-content: flex-end;
 }
 
-/* Animations */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
 .modal:not(.hidden) .modal-overlay { animation: fadeIn 0.3s ease-out; }
 .modal:not(.hidden) .modal-container { animation: slideUp 0.3s ease-out; }
 
-/* Pulse animation for loading */
 .pulse {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -679,7 +676,6 @@ body {
     border-radius: 0.25rem;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--slate-100); }
 ::-webkit-scrollbar-thumb { background: var(--slate-200); border-radius: 4px; }
@@ -692,8 +688,6 @@ box-shadow:0 2px 8px rgba(0,0,0,0.1);
 cursor:pointer;
 }
 
-/* top bar */
-
 .card-header{
 display:flex;
 justify-content:space-between;
@@ -705,8 +699,6 @@ margin-bottom:10px;
 width:18px;
 height:18px;
 }
-
-/* priority */
 
 .priority-badge{
 padding:4px 8px;
@@ -727,8 +719,6 @@ background:#f39c12;
 .priority-badge.low{
 background:#2ecc71;
 }
-
-/* content */
 
 .card-content h3{
 margin:0 0 6px 0;
@@ -752,4 +742,21 @@ justify-content:space-between;
 font-size:12px;
 color:#666;
 margin-top:10px;
+}
+
+.issue-card{
+background:white;
+border-radius:10px;
+padding:15px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+cursor:pointer;
+border-top:4px solid transparent;
+}
+
+.issue-card.open{
+border-top:4px solid #10b981;
+}
+
+.issue-card.closed{
+border-top:4px solid #4f46e5;
 }

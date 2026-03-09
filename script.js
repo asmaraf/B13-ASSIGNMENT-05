@@ -1,234 +1,190 @@
 const API = "https://phi-lab-server.vercel.app/api/v1/lab";
 
-document.addEventListener("DOMContentLoaded", ()=>{
-
-initLogin();
-initDashboard();
-
+document.addEventListener("DOMContentLoaded", () => {
+  initLogin();
+  initDashboard();
 });
 
+function initLogin() {
+  const form = document.getElementById("loginForm");
+  if (!form) return;
 
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-function initLogin(){
+    const u = document.getElementById("username").value;
+    const p = document.getElementById("password").value;
 
-const form=document.getElementById("loginForm");
-if(!form) return;
-
-form.addEventListener("submit",(e)=>{
-
-e.preventDefault();
-
-const u=document.getElementById("username").value;
-const p=document.getElementById("password").value;
-
-if(u==="admin" && p==="admin123"){
-
-localStorage.setItem("isLoggedIn","true");
-window.location.href="index.html";
-
-}else{
-
-document.getElementById("errorMessage").classList.remove("hidden");
-
+    if (u === "admin" && p === "admin123") {
+      localStorage.setItem("isLoggedIn", "true");
+      window.location.href = "index.html";
+    } else {
+      document.getElementById("errorMessage").classList.remove("hidden");
+    }
+  });
 }
 
-});
+function initDashboard() {
+  const grid = document.getElementById("issuesGrid");
+  if (!grid) return;
 
-}
+  const spinner = document.getElementById("loadingSpinner");
+  const issueCount = document.getElementById("issueCount");
+  const searchInput = document.getElementById("searchInput");
+  const searchBtn = document.getElementById("searchBtn");
 
+  let allIssues = [];
+  let filter = "all";
 
+  loadIssues();
 
-function initDashboard(){
+  async function loadIssues() {
+    spinner.classList.remove("hidden");
 
-const grid=document.getElementById("issuesGrid");
-if(!grid) return;
+    const res = await fetch(API + "/issues");
+    const data = await res.json();
 
-const spinner=document.getElementById("loadingSpinner");
-const issueCount=document.getElementById("issueCount");
+    allIssues = data.data;
 
-const searchInput=document.getElementById("searchInput");
-const searchBtn=document.getElementById("searchBtn");
+    spinner.classList.add("hidden");
+    render();
+  }
 
-let allIssues=[];
-let filter="all";
+  function render() {
+    grid.innerHTML = "";
 
-loadIssues();
+    let list = allIssues;
 
-async function loadIssues(){
+    if (filter === "open") {
+      list = allIssues.filter((i) => i.status === "open");
+    }
 
-spinner.classList.remove("hidden");
+    if (filter === "closed") {
+      list = allIssues.filter((i) => i.status === "closed");
+    }
 
-const res=await fetch(API+"/issues");
-const data=await res.json();
+    issueCount.textContent = list.length;
 
-allIssues=data.data;
+    list.forEach((issue) => {
+      const card = document.createElement("div");
 
-spinner.classList.add("hidden");
+      // ✅ STATUS CLASS ADDED
+      card.className = `issue-card ${issue.status}`;
 
-render();
+      let statusImage =
+        issue.status === "open"
+          ? "assets/Open-Status.png"
+          : "assets/Closed-Status.png";
 
-}
+      card.innerHTML = `
+        <div class="card-header">
+          <img class="status-icon" src="${statusImage}">
+          <span class="priority-badge ${issue.priority}">
+            ${issue.priority}
+          </span>
+        </div>
 
+        <div class="card-content">
+          <h3>${issue.title}</h3>
+          <p>${issue.description}</p>
+        </div>
 
+        <div class="labels-container">
+          ${(issue.labels || [])
+            .map((l) => `<span class="label-badge">${l}</span>`)
+            .join("")}
+        </div>
 
-function render(){
+        <div class="card-footer">
+          <span>${issue.author}</span>
+          <span>${new Date(issue.createdAt).toLocaleDateString()}</span>
+        </div>
+      `;
 
-grid.innerHTML="";
+      card.onclick = () => openModal(issue.id);
 
-let list=allIssues;
+      grid.appendChild(card);
+    });
+  }
 
-if(filter==="open"){
-list=allIssues.filter(i=>i.status==="open");
-}
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.onclick = () => {
+      document.querySelectorAll(".tab-btn").forEach((b) =>
+        b.classList.remove("active")
+      );
 
-if(filter==="closed"){
-list=allIssues.filter(i=>i.status==="closed");
-}
+      btn.classList.add("active");
 
-issueCount.textContent=list.length;
+      filter = btn.dataset.tab;
+      render();
+    };
+  });
 
-list.forEach(issue=>{
+  searchBtn.onclick = async () => {
+    const q = searchInput.value;
 
-const card=document.createElement("div");
+    const res = await fetch(API + "/issues/search?q=" + q);
+    const data = await res.json();
 
-card.className="issue-card";
+    allIssues = data.data;
+    render();
+  };
 
+  const modal = document.getElementById("issueModal");
+  const modalHeader = document.getElementById("modalHeader");
+  const modalBody = document.getElementById("modalBody");
 
+  async function openModal(id) {
+    const res = await fetch(API + "/issue/" + id);
+    const data = await res.json();
 
-let statusImage="";
+    const issue = data.data;
+    const date = new Date(issue.createdAt).toLocaleDateString();
 
-if(issue.status==="open"){
-statusImage="assets/Open-Status.png";
-}else{
-statusImage="assets/Closed-Status.png";
-}
+    modal.classList.remove("hidden");
 
-card.innerHTML=`
+    modalHeader.innerHTML = `
+      <h2>${issue.title}</h2>
 
-<div class="card-header">
+      <div class="modal-meta">
+        <span class="status-pill">${issue.status}</span>
+        <span>Opened by <b>${issue.author}</b> • ${date}</span>
+      </div>
+    `;
 
-<img class="status-icon" src="${statusImage}">
+    modalBody.innerHTML = `
+      <div class="modal-labels">
+        ${(issue.labels || [])
+          .map((label) => `<span class="label-badge">${label}</span>`)
+          .join("")}
+      </div>
 
-<span class="priority-badge ${issue.priority}">
-${issue.priority}
-</span>
+      <div class="modal-description">
+        <p>${issue.description}</p>
+      </div>
 
-</div>
+      <div class="modal-info-grid">
 
-<div class="card-content">
-<h3>${issue.title}</h3>
-<p>${issue.description}</p>
-</div>
+        <div class="info-item">
+          <label>Assignee</label>
+          <p>${issue.assignee || "Unassigned"}</p>
+        </div>
 
-<div class="labels-container">
-${issue.labels.map(l=>`<span class="label-badge">${l}</span>`).join("")}
-</div>
+        <div class="info-item">
+          <label>Priority</label>
+          <span class="priority-pill">${issue.priority}</span>
+        </div>
 
-<div class="card-footer">
-<span>${issue.author}</span>
-<span>${new Date(issue.createdAt).toLocaleDateString()}</span>
-</div>
+      </div>
+    `;
+  }
 
-`;
+  document.getElementById("closeModal").onclick = () =>
+    modal.classList.add("hidden");
 
-card.onclick=()=>openModal(issue.id);
+  document.getElementById("closeModalBtn").onclick = () =>
+    modal.classList.add("hidden");
 
-grid.appendChild(card);
-
-});
-
-}
-
-document.querySelectorAll(".tab-btn").forEach(btn=>{
-
-btn.onclick=()=>{
-
-document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
-btn.classList.add("active");
-
-filter=btn.dataset.tab;
-
-render();
-
-};
-
-});
-
-
-
-searchBtn.onclick=async()=>{
-
-const q=searchInput.value;
-
-const res=await fetch(API+"/issues/search?q="+q);
-const data=await res.json();
-
-allIssues=data.data;
-
-render();
-
-};
-
-
-
-const modal=document.getElementById("issueModal");
-const modalHeader=document.getElementById("modalHeader");
-const modalBody=document.getElementById("modalBody");
-
-async function openModal(id){
-
-const res = await fetch(API + "/issue/" + id);
-const data = await res.json();
-
-const issue = data.data;
-
-const date = new Date(issue.createdAt).toLocaleDateString();
-
-modal.classList.remove("hidden");
-
-modalHeader.innerHTML = `
-<h2>${issue.title}</h2>
-
-<div class="modal-meta">
-<span class="status-pill">${issue.status}</span>
-<span>Opened by <b>${issue.author}</b> • ${date}</span>
-</div>
-`;
-
-modalBody.innerHTML = `
-
-<div class="modal-labels">
-${issue.labels.map(label => `
-<span class="label-badge">${label}</span>
-`).join("")}
-</div>
-
-<div class="modal-description">
-<p>${issue.description}</p>
-</div>
-
-<div class="modal-info-grid">
-
-<div class="info-item">
-<label>Assignee</label>
-<p>${issue.assignee}</p>
-</div>
-
-<div class="info-item">
-<label>Priority</label>
-<span class="priority-pill">${issue.priority}</span>
-</div>
-
-</div>
-
-`;
-
-}
-
-
-
-document.getElementById("closeModal").onclick=()=>modal.classList.add("hidden");
-document.getElementById("closeModalBtn").onclick=()=>modal.classList.add("hidden");
-document.getElementById("modalOverlay").onclick=()=>modal.classList.add("hidden");
-
+  document.getElementById("modalOverlay").onclick = () =>
+    modal.classList.add("hidden");
 }
